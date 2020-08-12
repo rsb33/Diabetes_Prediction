@@ -18,7 +18,7 @@ class ClientApi:
 
 @app.route('/', methods=['GET'])  # route to display the home page
 def homePage():
-    return render_template("index.html")
+    return render_template("new_index.html")
 
 
 @app.route("/predict", methods=['POST', 'GET'])
@@ -55,7 +55,11 @@ def predictRoute():
 
         # result = clntApp.predObj.predict_log(data)
         print('result is        ', res)
-        return render_template('results.html', res=res)
+
+        if res == "Diabetic":
+            return render_template('negative_result.html', res=res)
+        else:
+            return render_template('positive_result.html', res=res)
     # return jsonify({"Prediction": res})
     except ValueError:
         return Response("Value not found")
